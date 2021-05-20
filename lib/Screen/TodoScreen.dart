@@ -4,6 +4,8 @@ import 'package:todo_list/Component/HomePageAppbar.dart';
 class TodoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: HomeAppbar(title: 'Home page'),
+    );
   }
 }
