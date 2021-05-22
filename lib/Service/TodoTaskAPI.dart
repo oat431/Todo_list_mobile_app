@@ -1,15 +1,62 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
-import 'package:todo_list/Model/TodoTask.dart';
+import 'package:todo_list/Service/API.dart';
 
-Future<TodoTask> getAllTask(int id) async {
-  final response =
-      await http.get(Uri.http('52.179.120.20:5039', "/api/todo/$id/allTasks"));
+class TodoTaskAPI {
+  Future<http.Response> addtodoTask(
+      String task, String description, int todo_no) {
+    return http.post(
+      Uri.parse('http://${API.baseUrl}/api/todo/$todo_no/addTask'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode({
+        "task": task,
+        "description": description,
+      }),
+    );
+  }
 
-  if (response.statusCode == 200) {
-    return TodoTask.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to load todo list');
+  // read
+  Future<http.Response> getallTask(int todo_no) {
+    return http
+        .get(Uri.parse('http://${API.baseUrl}/api/todo/$todo_no/allTasks'));
+  }
+
+  // update
+  Future<http.Response> updateTask(
+      int todo_no, int task_no, String description, String task) {
+    return http.put(
+      Uri.parse('http://${API.baseUrl}/api/todo/$todo_no/updateTask/$task_no'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode({
+        "task": task,
+        "description": description,
+      }),
+    );
+  }
+
+  Future<http.Response> updateTaskStatus(int todo_no, int task_no, int status) {
+    return http.put(
+      Uri.parse(
+          'http://${API.baseUrl}/api/todo/$todo_no/updateStatus/$task_no/$status'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode({"status": status}),
+    );
+  }
+
+  // delete
+  Future<http.Response> deletetodoList(int todo_no, int task_no) {
+    final deletetodoList = http.delete(
+      Uri.parse('http://${API.baseUrl}/api/todo/$todo_no/delteTask/$task_no'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    return deletetodoList;
   }
 }
