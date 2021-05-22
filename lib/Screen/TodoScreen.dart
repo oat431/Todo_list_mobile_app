@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:todo_list/Component/HomePageAppbar.dart';
 import 'package:todo_list/Component/ShowTodoList.dart';
 import 'package:todo_list/Model/TodoList.dart';
-import 'package:todo_list/Service/TosoListAPI.dart';
+import 'package:todo_list/Service/TodoListAPI.dart';
+import 'package:todo_list/Widget/TodoAppbar.dart';
 
 class TodoScreen extends StatefulWidget {
   @override
@@ -33,8 +33,8 @@ class _TodoScreenState extends State<TodoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HomeAppbar(title: 'Home page'),
-      body: ShowTodoList(data:_todoList),
+      appBar: TodoAppbar(screen_name: "Home page"),
+      body: ShowTodoList(data: _todoList),
     );
   }
 }
