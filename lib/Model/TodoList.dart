@@ -4,7 +4,7 @@ class TodoList {
   int todo_no;
   String owner;
   String description;
-  DateTime date;
+  String date;
   String title;
 
   TodoList({
@@ -14,4 +14,14 @@ class TodoList {
     @required this.date,
     @required this.title,
   });
+
+  factory TodoList.fromJson(Map<String, dynamic> json) {
+    return TodoList(
+      todo_no: json['todo_no'],
+      owner: json['owner'],
+      description: json['description'],
+      date:json['date'].toString(),
+      title:json['title']
+    );
+  }
 }
