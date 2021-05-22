@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class TodoAppbar extends StatelessWidget implements PreferredSizeWidget {
-  String title;
+  String screen_name;
   String leadPath;
   List<Widget> actionPath;
   TodoAppbar({
-    @required String title,
-    String leadPath,
-    List<Widget> actionPath,
+    @required this.screen_name,
+    this.leadPath,
+    this.actionPath,
   });
 
   @override
@@ -17,7 +17,7 @@ class TodoAppbar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       leading: GestureDetector(),
-      title: Text(title ?? 'Default Text'),
+      title: Text(screen_name),
       actions: actionPath,
     );
   }
