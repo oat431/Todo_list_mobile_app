@@ -10,6 +10,6 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TodoAppbar(title: title);
+    return TodoAppbar(title: title ?? 'Home page Default Text');
   }
 }
