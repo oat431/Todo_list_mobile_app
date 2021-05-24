@@ -38,8 +38,8 @@ class TodoTaskAPI {
     );
   }
 
-  Future<http.Response> updateTaskStatus(int todo_no, int task_no, int status) {
-    return http.put(
+  static Future<bool> updateTaskStatus(int todo_no, int task_no, int status) async {
+    var res = await http.put(
       Uri.parse(
           'http://${API.baseUrl}/api/todo/$todo_no/updateStatus/$task_no/$status'),
       headers: {
@@ -47,6 +47,11 @@ class TodoTaskAPI {
       },
       body: jsonEncode({"status": status}),
     );
+    if(res.statusCode == 200){
+      return true;
+    }else {
+      return false;
+    }
   }
 
   // delete

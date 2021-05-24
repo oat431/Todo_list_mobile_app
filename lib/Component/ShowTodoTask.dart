@@ -1,29 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/Model/TodoTask.dart';
+import 'package:todo_list/Screen/TodoTaskScreen.dart';
 import 'package:todo_list/Service/TodoTaskAPI.dart';
 import 'package:todo_list/Widget/Text/TodoDate.dart';
 import 'package:todo_list/Widget/Text/TodoText.dart';
 import 'package:todo_list/Widget/Text/TodoTitle.dart';
 
-class ShowTodoTask extends StatelessWidget {
+class ShowTodoTask extends StatefulWidget {
   List<TodoTask> data;
-  TodoTaskAPI task_api;
+
   ShowTodoTask({this.data});
+
+  @override
+  _ShowTodoTaskState createState() => _ShowTodoTaskState();
+}
+
+class _ShowTodoTaskState extends State<ShowTodoTask> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   Widget notHaveTask() {
     print('not have task');
     return Text("Don't have any task yet please add.");
   }
 
-  Future updateStatus (TodoTask task) {
-    return task_api.updateTaskStatus(task.todo_no,task.task_no,1);
+  void updateStatus(TodoTask task, BuildContext context) async {
+    return await TodoTaskAPI.updateTaskStatus(task.todo_no, task.task_no, 1)
+        .then((success) {
+    });
   }
 
-  Widget Task(TodoTask task) {
+  Widget Task(TodoTask task,int index ,BuildContext context) {
     print("have task");
     return ListTile(
       onLongPress: () {
-        updateStatus(task);
+        updateStatus(task, context);
+        setState(() {
+          widget.data[index].status = 1;
+        });
       },
       title: TodoTitle(title: task.task),
       subtitle: TodoText(content: task.description),
@@ -36,12 +53,12 @@ class ShowTodoTask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: data == null ? 0 : data.length,
+      itemCount: widget.data == null ? 0 : widget.data.length,
       itemBuilder: (context, index) {
-        final item = data[index];
+        final item = widget.data[index];
         return Container(
           child: Card(
-            child: Task(item),
+            child: Task(item,index, context),
           ),
         );
       },
