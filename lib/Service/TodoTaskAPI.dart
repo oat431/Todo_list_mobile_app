@@ -18,7 +18,7 @@ class TodoTaskAPI {
   }
 
   // read
-  Future<http.Response> getallTask(int todo_no) {
+  static Future<http.Response> getallTask(int todo_no) {
     return http
         .get(Uri.parse('http://${API.baseUrl}/api/todo/$todo_no/allTasks'));
   }
