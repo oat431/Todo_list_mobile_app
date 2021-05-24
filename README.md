@@ -6,4 +6,4 @@
 
 - sql database
 
-- ec2 and amplify
+- Azure VM and Moblie service
