@@ -2,7 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:todo_list/Component/ShowTodoList.dart';
+import 'package:todo_list/Component/TodoListComponent/AddingTodoList.dart';
+import 'package:todo_list/Component/TodoListComponent/ShowTodoList.dart';
 import 'package:todo_list/Model/TodoList.dart';
 import 'package:todo_list/Service/TodoListAPI.dart';
 import 'package:todo_list/Widget/TodoAppbar.dart';
@@ -39,9 +40,7 @@ class _TodoScreenState extends State<TodoScreen> {
       appBar: TodoAppbar(screen_name: "Home page"),
       body: ShowTodoList(data: _todoList),
       floatingActionButton: TodoFAB(
-        fun: () {
-          print("Add some todo");
-        },
+        hiddenWidget: AddingTodoList(),
       ),
     );
   }

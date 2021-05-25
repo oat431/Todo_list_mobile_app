@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:todo_list/Component/ShowTodoTask.dart';
+import 'package:todo_list/Component/TodoTaskComponent/ShowTodoTask.dart';
+import 'package:todo_list/Component/TodoTaskComponent/AddingTodoTask.dart';
 import 'package:todo_list/Model/TodoTask.dart';
 import 'package:todo_list/Service/TodoTaskAPI.dart';
 import 'package:todo_list/Widget/TodoAppbar.dart';
@@ -56,7 +57,9 @@ class _TodoTaskScreenState extends State<TodoTaskScreen> {
         screen_name: widget.title,
       ),
       body: ShowTodoTask(data: _todoTask),
-      floatingActionButton: TodoFAB(fun:(){print("something");}),
+      floatingActionButton: TodoFAB(
+        hiddenWidget: AddingTodoTask(todo_no:widget.todo_no),
+      ),
     );
   }
 }

@@ -26,16 +26,15 @@ class _ShowTodoTaskState extends State<ShowTodoTask> {
     return Text("Don't have any task yet please add.");
   }
 
-  void updateStatus(TodoTask task, BuildContext context) async {
+  void updateStatus(TodoTask task) async {
     return await TodoTaskAPI.updateTaskStatus(task.todo_no, task.task_no, 1)
         .then((success) {});
   }
 
   Widget Task(TodoTask task, int index, BuildContext context) {
-    print("have task");
     return ListTile(
       onLongPress: () {
-        updateStatus(task, context);
+        updateStatus(task);
         setState(() {
           widget.data[index].status = 1;
         });

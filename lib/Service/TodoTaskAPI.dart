@@ -3,9 +3,12 @@ import 'package:http/http.dart' as http;
 import 'package:todo_list/Service/API.dart';
 
 class TodoTaskAPI {
-  Future<http.Response> addtodoTask(
-      String task, String description, int todo_no) {
-    return http.post(
+  static Future<bool> addtodoTask(
+    String task,
+    String description,
+    int todo_no,
+  ) async {
+    var res = await http.post(
       Uri.parse('http://${API.baseUrl}/api/todo/$todo_no/addTask'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -15,6 +18,7 @@ class TodoTaskAPI {
         "description": description,
       }),
     );
+    return res.statusCode == 200;
   }
 
   // read
@@ -38,7 +42,8 @@ class TodoTaskAPI {
     );
   }
 
-  static Future<bool> updateTaskStatus(int todo_no, int task_no, int status) async {
+  static Future<bool> updateTaskStatus(
+      int todo_no, int task_no, int status) async {
     var res = await http.put(
       Uri.parse(
           'http://${API.baseUrl}/api/todo/$todo_no/updateStatus/$task_no/$status'),
@@ -47,11 +52,7 @@ class TodoTaskAPI {
       },
       body: jsonEncode({"status": status}),
     );
-    if(res.statusCode == 200){
-      return true;
-    }else {
-      return false;
-    }
+    return res.statusCode == 200;
   }
 
   // delete
