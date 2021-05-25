@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:todo_list/Screen/TodoScreen.dart';
 import 'package:todo_list/Screen/TodoTaskScreen.dart';
 
@@ -19,6 +20,9 @@ class MyApp extends StatelessWidget {
         ),
         home: TodoScreen(),
         routes: routes,
+        builder : (BuildContext context, Widget child){
+          return FlutterSmartDialog(child: child);
+        }
     );
   }
 }
