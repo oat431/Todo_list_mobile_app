@@ -12,31 +12,34 @@ class ShowTodoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: data == null ? 0 : data.length,
-      itemBuilder: (context, index) {
-        final item = data[index];
-        return Container(
-          child: Card(
-            child: ListTile(
-              onTap: () => {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TodoTaskScreen(
-                        todo_no: item.todo_no,
-                        title: item.title,
+    return Container(
+      margin: EdgeInsets.only(top:3,bottom:3),
+      child: ListView.builder(
+        itemCount: data == null ? 0 : data.length,
+        itemBuilder: (context, index) {
+          final item = data[index];
+          return Container(
+            child: Card(
+              child: ListTile(
+                onTap: () => {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TodoTaskScreen(
+                          todo_no: item.todo_no,
+                          title: item.title,
+                        ),
                       ),
-                    ),
-                    (route) => false)
-              },
-              title: TodoTitle(title: item.title),
-              subtitle: TodoText(content: item.description),
-              trailing: TodoDate(date: item.date),
+                      (route) => false)
+                },
+                title: TodoTitle(title: item.title),
+                subtitle: TodoText(content: item.description),
+                trailing: TodoDate(date: item.date),
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

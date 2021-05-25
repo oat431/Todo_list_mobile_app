@@ -6,6 +6,7 @@ import 'package:todo_list/Component/ShowTodoList.dart';
 import 'package:todo_list/Model/TodoList.dart';
 import 'package:todo_list/Service/TodoListAPI.dart';
 import 'package:todo_list/Widget/TodoAppbar.dart';
+import 'package:todo_list/Widget/TodoFAB.dart';
 
 class TodoScreen extends StatefulWidget {
   static String tag = "TodoScreen";
@@ -37,6 +38,11 @@ class _TodoScreenState extends State<TodoScreen> {
     return Scaffold(
       appBar: TodoAppbar(screen_name: "Home page"),
       body: ShowTodoList(data: _todoList),
+      floatingActionButton: TodoFAB(
+        fun: () {
+          print("Add some todo");
+        },
+      ),
     );
   }
 }

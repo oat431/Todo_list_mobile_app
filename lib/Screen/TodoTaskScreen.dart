@@ -5,6 +5,7 @@ import 'package:todo_list/Component/ShowTodoTask.dart';
 import 'package:todo_list/Model/TodoTask.dart';
 import 'package:todo_list/Service/TodoTaskAPI.dart';
 import 'package:todo_list/Widget/TodoAppbar.dart';
+import 'package:todo_list/Widget/TodoFAB.dart';
 
 import 'TodoScreen.dart';
 
@@ -55,6 +56,7 @@ class _TodoTaskScreenState extends State<TodoTaskScreen> {
         screen_name: widget.title,
       ),
       body: ShowTodoTask(data: _todoTask),
+      floatingActionButton: TodoFAB(fun:(){print("something");}),
     );
   }
 }

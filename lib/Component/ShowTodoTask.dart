@@ -16,7 +16,6 @@ class ShowTodoTask extends StatefulWidget {
 }
 
 class _ShowTodoTaskState extends State<ShowTodoTask> {
-
   @override
   void initState() {
     super.initState();
@@ -29,11 +28,10 @@ class _ShowTodoTaskState extends State<ShowTodoTask> {
 
   void updateStatus(TodoTask task, BuildContext context) async {
     return await TodoTaskAPI.updateTaskStatus(task.todo_no, task.task_no, 1)
-        .then((success) {
-    });
+        .then((success) {});
   }
 
-  Widget Task(TodoTask task,int index ,BuildContext context) {
+  Widget Task(TodoTask task, int index, BuildContext context) {
     print("have task");
     return ListTile(
       onLongPress: () {
@@ -52,16 +50,19 @@ class _ShowTodoTaskState extends State<ShowTodoTask> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget.data == null ? 0 : widget.data.length,
-      itemBuilder: (context, index) {
-        final item = widget.data[index];
-        return Container(
-          child: Card(
-            child: Task(item,index, context),
-          ),
-        );
-      },
+    return Container(
+      margin: EdgeInsets.only(top:3,bottom:3),
+      child: ListView.builder(
+        itemCount: widget.data == null ? 0 : widget.data.length,
+        itemBuilder: (context, index) {
+          final item = widget.data[index];
+          return Container(
+            child: Card(
+              child: Task(item, index, context),
+            ),
+          );
+        },
+      ),
     );
   }
 }
