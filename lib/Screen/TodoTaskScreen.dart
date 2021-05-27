@@ -10,34 +10,13 @@ import 'package:todo_list/Widget/TodoFAB.dart';
 
 import 'TodoScreen.dart';
 
-class TodoTaskScreen extends StatefulWidget {
+class TodoTaskScreen extends StatelessWidget {
   static String tag = "TodoTaskScreen";
 
   int todo_no;
   String title;
 
   TodoTaskScreen({this.todo_no, this.title});
-
-  @override
-  _TodoTaskScreenState createState() => _TodoTaskScreenState();
-}
-
-class _TodoTaskScreenState extends State<TodoTaskScreen> {
-  List<TodoTask> _todoTask;
-
-  Future<String> getAllTaskByTodoList() async {
-    var response = await TodoTaskAPI.getallTask(widget.todo_no);
-    setState(() {
-      List res = json.decode(response.body);
-      _todoTask = res.map((data) => TodoTask.fromJson(data)).toList();
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getAllTaskByTodoList();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +33,13 @@ class _TodoTaskScreenState extends State<TodoTaskScreen> {
                 (route) => false);
           },
         ),
-        screen_name: widget.title,
+        screen_name: title,
       ),
-      body: ShowTodoTask(data: _todoTask),
+      body: ShowTodoTask(
+        todo_no: todo_no,
+      ),
       floatingActionButton: TodoFAB(
-        hiddenWidget: AddingTodoTask(todo_no:widget.todo_no),
+        hiddenWidget: AddingTodoTask(todo_no: todo_no),
       ),
     );
   }

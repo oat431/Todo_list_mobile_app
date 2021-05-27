@@ -1,24 +1,35 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:todo_list/Model/TodoTask.dart';
-import 'package:todo_list/Screen/TodoTaskScreen.dart';
 import 'package:todo_list/Service/TodoTaskAPI.dart';
 import 'package:todo_list/Widget/Text/TodoDate.dart';
 import 'package:todo_list/Widget/Text/TodoText.dart';
 import 'package:todo_list/Widget/Text/TodoTitle.dart';
 
 class ShowTodoTask extends StatefulWidget {
-  List<TodoTask> data;
-
-  ShowTodoTask({this.data});
+  int todo_no;
+  ShowTodoTask({this.todo_no});
 
   @override
   _ShowTodoTaskState createState() => _ShowTodoTaskState();
 }
 
 class _ShowTodoTaskState extends State<ShowTodoTask> {
+  List<TodoTask> _todoTask;
+
+  Future<String> getAllTaskByTodoList() async {
+    var response = await TodoTaskAPI.getallTask(widget.todo_no);
+    setState(() {
+      List res = json.decode(response.body);
+      _todoTask = res.map((data) => TodoTask.fromJson(data)).toList();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    getAllTaskByTodoList();
   }
 
   Widget notHaveTask() {
@@ -26,27 +37,18 @@ class _ShowTodoTaskState extends State<ShowTodoTask> {
     return Text("Don't have any task yet please add.");
   }
 
-  void updateStatus(TodoTask task) async {
-    return await TodoTaskAPI.updateTaskStatus(task.todo_no, task.task_no, 1)
-        .then((success) {});
-  }
-
-  void delteTask(TodoTask task) async {
-    setState(() {});
-    return await TodoTaskAPI.deletetodoTask(task.todo_no, task.task_no)
-        .then((ok) {});
-  }
-
   Widget Task(TodoTask task, int index, BuildContext context) {
     return ListTile(
-      onLongPress: () {
-        delteTask(task);
-        setState(() {});
+      onLongPress: () async {
+        await TodoTaskAPI.deletetodoTask(task.todo_no, task.task_no)
+            .then((ok) {});
+        getAllTaskByTodoList();
       },
-      onTap: () {
-        updateStatus(task);
+      onTap: () async {
+        await TodoTaskAPI.updateTaskStatus(task.todo_no, task.task_no, 1)
+            .then((ok) {});
         setState(() {
-          widget.data[index].status = 1;
+          _todoTask[index].status = 1;
         });
       },
       title: TodoTitle(title: task.task),
@@ -62,9 +64,9 @@ class _ShowTodoTaskState extends State<ShowTodoTask> {
     return Container(
       margin: EdgeInsets.only(top: 3, bottom: 3),
       child: ListView.builder(
-        itemCount: widget.data == null ? 0 : widget.data.length,
+        itemCount: _todoTask == null ? 0 : _todoTask.length,
         itemBuilder: (context, index) {
-          final item = widget.data[index];
+          final item = _todoTask[index];
           return Container(
             child: Card(
               child: Task(item, index, context),

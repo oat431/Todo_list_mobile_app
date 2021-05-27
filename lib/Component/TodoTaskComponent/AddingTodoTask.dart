@@ -56,10 +56,17 @@ class _AddingTodoTaskState extends State<AddingTodoTask> {
               controller: _description,
             ),
             TodoButton(
-                buttonLabel: 'submit',
-                whenSubmit: () {
-                  addTask(_task.text, _description.text, widget.todo_no);
-                }),
+              buttonLabel: 'submit',
+              whenSubmit: () {
+                addTask(_task.text, _description.text, widget.todo_no);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => super.widget,
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
