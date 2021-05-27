@@ -31,9 +31,19 @@ class _ShowTodoTaskState extends State<ShowTodoTask> {
         .then((success) {});
   }
 
+  void delteTask(TodoTask task) async {
+    setState(() {});
+    return await TodoTaskAPI.deletetodoTask(task.todo_no, task.task_no)
+        .then((ok) {});
+  }
+
   Widget Task(TodoTask task, int index, BuildContext context) {
     return ListTile(
       onLongPress: () {
+        delteTask(task);
+        setState(() {});
+      },
+      onTap: () {
         updateStatus(task);
         setState(() {
           widget.data[index].status = 1;
@@ -50,7 +60,7 @@ class _ShowTodoTaskState extends State<ShowTodoTask> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top:3,bottom:3),
+      margin: EdgeInsets.only(top: 3, bottom: 3),
       child: ListView.builder(
         itemCount: widget.data == null ? 0 : widget.data.length,
         itemBuilder: (context, index) {

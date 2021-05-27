@@ -28,9 +28,13 @@ class TodoTaskAPI {
   }
 
   // update
-  Future<http.Response> updateTask(
-      int todo_no, int task_no, String description, String task) {
-    return http.put(
+  static Future<bool> updateTask(
+    int todo_no,
+    int task_no,
+    String description,
+    String task,
+  ) async {
+    var update = await http.put(
       Uri.parse('http://${API.baseUrl}/api/todo/$todo_no/updateTask/$task_no'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -40,10 +44,14 @@ class TodoTaskAPI {
         "description": description,
       }),
     );
+    return update.statusCode == 200;
   }
 
   static Future<bool> updateTaskStatus(
-      int todo_no, int task_no, int status) async {
+    int todo_no,
+    int task_no,
+    int status,
+  ) async {
     var res = await http.put(
       Uri.parse(
           'http://${API.baseUrl}/api/todo/$todo_no/updateStatus/$task_no/$status'),
@@ -56,13 +64,13 @@ class TodoTaskAPI {
   }
 
   // delete
-  Future<http.Response> deletetodoList(int todo_no, int task_no) {
-    final deletetodoList = http.delete(
+  static Future<bool> deletetodoTask(int todo_no, int task_no) async {
+    final deletetodoList = await http.delete(
       Uri.parse('http://${API.baseUrl}/api/todo/$todo_no/delteTask/$task_no'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    return deletetodoList;
+    return deletetodoList.statusCode == 200;
   }
 }
