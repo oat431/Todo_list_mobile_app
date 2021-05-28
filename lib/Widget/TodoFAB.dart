@@ -18,8 +18,7 @@ class TodoFAB extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () => {showDialog()},
-      child: Icon(Icons.add),
-      backgroundColor: Colors.purple.shade200,
+      child: Text('Add Task'), 
     );
   }
 }

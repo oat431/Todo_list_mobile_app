@@ -39,9 +39,6 @@ class _TodoScreenState extends State<TodoScreen> {
     return Scaffold(
       appBar: TodoAppbar(screen_name: "Home page"),
       body: ShowTodoList(data: _todoList),
-      floatingActionButton: TodoFAB(
-        hiddenWidget: AddingTodoList(),
-      ),
     );
   }
 }

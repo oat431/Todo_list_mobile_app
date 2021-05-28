@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:todo_list/Widget/Text/TodoTitle.dart';
 import 'package:todo_list/Widget/TodoButton.dart';
 import 'package:todo_list/Widget/TodoInput.dart';
-import 'package:todo_list/Service/TodoTaskAPI.dart';
-import 'package:provider/provider.dart';
 
 class AddingTodoTask extends StatefulWidget {
   int todo_no;

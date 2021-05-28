@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:todo_list/Service/API.dart';
 
 class TodoTaskAPI {
-  Future<bool> addtodoTask(
+  static Future<bool> addtodoTask(
     String task,
     String description,
     int todo_no,
