@@ -63,16 +63,21 @@ class _ShowTodoTaskState extends State<ShowTodoTask> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 3, bottom: 3),
-      child: ListView.builder(
-        itemCount: _todoTask == null ? 0 : _todoTask.length,
-        itemBuilder: (context, index) {
-          final item = _todoTask[index];
-          return Container(
-            child: Card(
-              child: Task(item, index, context),
-            ),
-          );
-        },
+      child: Column(
+        children:[
+          ListView.builder(
+            itemCount: _todoTask == null ? 0 : _todoTask.length,
+            itemBuilder: (context, index) {
+            final item = _todoTask[index];
+            return Container(
+              child: Card(
+                child: Task(item, index, context),
+              ),
+            );
+          },
+        ),
+        TodoFAB();
+      ]
       ),
     );
   }

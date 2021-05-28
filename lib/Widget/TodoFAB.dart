@@ -10,16 +10,13 @@ class TodoFAB extends StatelessWidget {
     SmartDialog.show(
       alignmentTemp: Alignment.bottomCenter,
       clickBgDismissTemp: true,
-      onDismiss: () {
-        print('==============test callback==============');
-      },
       widget: hiddenWidget,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
+    return TextButton(
       onPressed: () => {showDialog()},
       child: Icon(Icons.add),
       backgroundColor: Colors.purple.shade200,
