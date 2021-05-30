@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:todo_list/Component/TodoTaskComponent/UpdatingTodoTask.dart';
 import 'package:todo_list/Model/TodoTask.dart';
 import 'package:todo_list/Widget/TodoFAB.dart';
 import 'package:todo_list/Widget/TodoTaskTile.dart';
@@ -58,7 +59,7 @@ class _ShowTodoTaskState extends State<ShowTodoTask> {
     };
   }
 
-  Function add() {
+  Function refresh() {
     return () async {
       getAllTaskByTodoList();
     };
@@ -82,6 +83,7 @@ class _ShowTodoTaskState extends State<ShowTodoTask> {
                       index: index,
                       delete: delete(item),
                       update: update(item, index),
+                      edit_data: UpdatingTodoTask(task: item, fun: refresh()),
                     ),
                   ),
                 );
@@ -89,9 +91,10 @@ class _ShowTodoTaskState extends State<ShowTodoTask> {
             ),
           ),
           TodoFAB(
+            name: "add task",
             hiddenWidget: AddingTodoTask(
               todo_no: widget.todo_no,
-              fun: add(),
+              fun: refresh(),
             ),
           ),
         ],
