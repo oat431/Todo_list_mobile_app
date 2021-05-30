@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/Service/TodoTaskAPI.dart';
 import 'package:todo_list/Widget/Text/TodoTitle.dart';
 import 'package:todo_list/Widget/TodoButton.dart';
 import 'package:todo_list/Widget/TodoInput.dart';
 
 class AddingTodoTask extends StatefulWidget {
   int todo_no;
-
-  AddingTodoTask({this.todo_no});
-
+  Function fun;
+  AddingTodoTask({this.todo_no, this.fun});
   @override
   _AddingTodoTaskState createState() => _AddingTodoTaskState();
 }
@@ -49,7 +49,14 @@ class _AddingTodoTaskState extends State<AddingTodoTask> {
             ),
             TodoButton(
               buttonLabel: 'submit',
-              whenSubmit: () {},
+              whenSubmit: () async {
+                await TodoTaskAPI.addtodoTask(
+                  _task.text,
+                  _description.text,
+                  widget.todo_no,
+                );
+                widget.fun();
+              },
             ),
           ],
         ),

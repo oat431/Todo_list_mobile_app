@@ -38,9 +38,6 @@ class TodoTaskScreen extends StatelessWidget {
       body: ShowTodoTask(
         todo_no: todo_no,
       ),
-      floatingActionButton: TodoFAB(
-        hiddenWidget: AddingTodoTask(todo_no: todo_no),
-      ),
     );
   }
 }
