@@ -3,9 +3,13 @@ import 'package:http/http.dart' as http;
 import 'package:todo_list/Service/API.dart';
 
 class TodoListAPI {
-  Future<http.Response> addtodoList(
-      String owner, String description, String date, String title) {
-    return http.post(
+  static Future<bool> addTodoList(
+    String owner,
+    String description,
+    String date,
+    String title,
+  ) async {
+    var res = await http.post(
       Uri.parse('http://${API.baseUrl}/api/todo/todolist'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -17,16 +21,23 @@ class TodoListAPI {
         "title": title,
       }),
     );
+    return res.statusCode == 200;
   }
 
   // read
-  static final getAlltodoList =
+  static Future<http.Response> getAllTodoList(){
+    return
       http.get(Uri.http(API.baseUrl, "/api/todo/todolist"));
+  }
 
   // update
-  Future<http.Response> updatetodoList(
-      int todo_no, String description, String date, String title) {
-    return http.put(
+  static Future<bool> updateTodoList(
+    int todo_no,
+    String description,
+    String date,
+    String title,
+  ) async {
+    var res = await http.put(
       Uri.parse('http://${API.baseUrl}/api/todo/todolist/$todo_no'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -37,16 +48,17 @@ class TodoListAPI {
         "title": title,
       }),
     );
+    return res.statusCode == 200;
   }
 
   // delete
-  Future<http.Response> deletetodoList(int todo_no) {
-    final deletetodoList = http.delete(
+  static Future<bool> deleteTodoList(int todo_no) async {
+    var res = await http.delete(
       Uri.parse('http://${API.baseUrl}/api/todo/todolist/$todo_no'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    return deletetodoList;
+    return res.statusCode == 200;
   }
 }
