@@ -19,9 +19,6 @@ class ShowTodoTask extends StatefulWidget {
 class _ShowTodoTaskState extends State<ShowTodoTask> {
   List<TodoTask> _todoTask;
 
-  final _task = TextEditingController();
-  final _description = TextEditingController();
-
   Future<String> getAllTaskByTodoList() async {
     var response = await TodoTaskAPI.getallTask(widget.todo_no);
     setState(() {
