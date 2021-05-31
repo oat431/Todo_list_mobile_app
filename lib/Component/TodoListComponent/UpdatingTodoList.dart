@@ -1,31 +1,38 @@
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:todo_list/Model/TodoList.dart';
 import 'package:todo_list/Service/TodoListAPI.dart';
 import 'package:todo_list/Widget/Text/TodoTitle.dart';
 import 'package:todo_list/Widget/TodoButton.dart';
 import 'package:todo_list/Widget/TodoInput.dart';
 
-class AddingTodoList extends StatefulWidget {
+class UpdatingTodoList extends StatefulWidget {
+  TodoList todo_list;
+  String date;
   Function fun;
 
-  AddingTodoList({this.fun});
+  UpdatingTodoList({this.todo_list, this.fun,this.date});
 
   @override
-  _AddingTodoListState createState() => _AddingTodoListState();
+  _UpdatingTodoListState createState() => _UpdatingTodoListState();
 }
 
-class _AddingTodoListState extends State<AddingTodoList> {
-  final _title = TextEditingController();
-  final _description = TextEditingController();
-  final _owner = TextEditingController();
+class _UpdatingTodoListState extends State<UpdatingTodoList> {
+  TextEditingController _description = TextEditingController();
+  TextEditingController _title = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
-    _title.dispose();
     _description.dispose();
-    _owner.dispose();
+    _title.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _description.text = widget.todo_list.description;
+    _title.text = widget.todo_list.title;
   }
 
   @override
@@ -44,7 +51,7 @@ class _AddingTodoListState extends State<AddingTodoList> {
             SizedBox(
               height: 20,
             ),
-            TodoTitle(title: "Add new Todo List"),
+            TodoTitle(title: "Editing a list"),
             TodoInput(
               placeholder: 'Title',
               controller: _title,
@@ -53,21 +60,17 @@ class _AddingTodoListState extends State<AddingTodoList> {
               placeholder: 'Description',
               controller: _description,
             ),
-            TodoInput(
-              placeholder: 'Owner',
-              controller: _owner,
-            ),
             TodoButton(
               buttonLabel: 'submit',
               whenSubmit: () async {
-                await TodoListAPI.addTodoList(
-                  _owner.text,
+                await TodoListAPI.updateTodoList(
+                  widget.todo_list.todo_no,
                   _description.text,
-                  DateFormat('yyyy-MM-dd').format(DateTime.now()),
+                  widget.date,
                   _title.text,
                 );
                 widget.fun();
-                SmartDialog.showToast("List added");
+                SmartDialog.showToast("List Updated");
               },
             ),
           ],

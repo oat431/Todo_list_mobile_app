@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:todo_list/Service/TodoTaskAPI.dart';
 import 'package:todo_list/Widget/Text/TodoTitle.dart';
 import 'package:todo_list/Widget/TodoButton.dart';
@@ -56,6 +57,7 @@ class _AddingTodoTaskState extends State<AddingTodoTask> {
                   widget.todo_no,
                 );
                 widget.fun();
+                SmartDialog.showToast("Task added");
               },
             ),
           ],

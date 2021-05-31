@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:todo_list/Component/TodoTaskComponent/UpdatingTodoTask.dart';
 import 'package:todo_list/Model/TodoTask.dart';
 import 'package:todo_list/Widget/TodoFAB.dart';
@@ -53,6 +54,7 @@ class _ShowTodoTaskState extends State<ShowTodoTask> {
       await TodoTaskAPI.deletetodoTask(item.todo_no, item.task_no)
           .then((ok) {});
       getAllTaskByTodoList();
+      SmartDialog.showToast("Task deleted");
     };
   }
 

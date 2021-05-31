@@ -2,11 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:intl/intl.dart';
+import 'package:todo_list/Component/TodoListComponent/UpdatingTodoList.dart';
 import 'package:todo_list/Screen/TodoTaskScreen.dart';
 import 'package:todo_list/Service/TodoListAPI.dart';
 import 'package:todo_list/Widget/Text/TodoText.dart';
 import 'package:todo_list/Widget/Text/TodoTitle.dart';
-import 'package:todo_list/Widget/Text/TodoDate.dart';
 import 'package:todo_list/Widget/TodoFAB.dart';
 import 'package:todo_list/Model/TodoList.dart';
 import 'package:todo_list/Component/TodoListComponent/AddingTodoList.dart';
@@ -23,7 +25,7 @@ class _ShowTodoListState extends State<ShowTodoList> {
     var response = await TodoListAPI.getAllTodoList();
     setState(() {
       List res = json.decode(response.body);
-      _data = res.map((todo)=>TodoList.fromJson(todo)).toList();
+      _data = res.map((todo) => TodoList.fromJson(todo)).toList();
     });
   }
 
@@ -53,6 +55,11 @@ class _ShowTodoListState extends State<ShowTodoList> {
                 return Container(
                   child: Card(
                     child: ListTile(
+                      onLongPress: () async {
+                        await TodoListAPI.deleteTodoList(item.todo_no);
+                        getAllList();
+                        SmartDialog.showToast("List deleted");
+                      },
                       onTap: () => {
                         Navigator.pushAndRemoveUntil(
                             context,
@@ -66,7 +73,14 @@ class _ShowTodoListState extends State<ShowTodoList> {
                       },
                       title: TodoTitle(title: item.title),
                       subtitle: TodoText(content: item.description),
-                      trailing: TodoDate(date: item.date),
+                      trailing: TodoFAB(
+                        name: item.date,
+                        hiddenWidget: UpdatingTodoList(
+                          todo_list: item,
+                          date: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+                          fun: refresh(),
+                        ),
+                      ),
                     ),
                   ),
                 );

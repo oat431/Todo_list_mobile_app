@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:todo_list/Model/TodoTask.dart';
 import 'package:todo_list/Service/TodoTaskAPI.dart';
 import 'package:todo_list/Widget/Text/TodoTitle.dart';
@@ -66,6 +67,7 @@ class _UpdatingTodoTaskState extends State<UpdatingTodoTask> {
                   _task.text,
                 );
                 widget.fun();
+                SmartDialog.showToast("Task updated");
               },
             ),
           ],
