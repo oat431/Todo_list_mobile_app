@@ -1,9 +1,11 @@
 # todo_list
 
-- Spring restful api
+currently stack
 
-- Flutter frontend
+- Spring-boot for RESTful api
 
-- sql database
+- Flutter framwork
 
-- Azure VM and Moblie service
+- MySQL database host on digital ocean
+
+- Digital Ocean Droplet
