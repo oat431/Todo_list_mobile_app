@@ -9,3 +9,8 @@ currently stack
 - MySQL database host on digital ocean
 
 - Digital Ocean Droplet
+
+
+---
+
+migrating to Azure cloud and try with azure devOps
