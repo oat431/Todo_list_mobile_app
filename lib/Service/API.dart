@@ -1,3 +1,3 @@
 class API {
-  static final String baseUrl = '167.99.64.31:5039';
+  static final String baseUrl = '< your RESTful API base endpoint here >';
 }
